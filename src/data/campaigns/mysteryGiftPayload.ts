@@ -12,15 +12,9 @@ export const mysteryGiftPayload: HomepagePayload = {
     {
       id: "carnival_overlay",
       type: "FULL_SCREEN_OVERLAY",
-      mediaType: "LOTTIE",
+      mediaType: "GIF",
       animationUrl:
-        "https://raw.githubusercontent.com/airbnb/lottie-web/master/demo/navidad/data.json",
-      fallbackLocalAsset: "assets/animations/mystery-gift-overlay.json",
-      localAssetPlaceholders: {
-        lottieJson: "assets/animations/mystery-gift-overlay.json",
-        gif: "assets/animations/mystery-gift-overlay.gif",
-        webp: "assets/animations/mystery-gift-overlay.webp",
-      },
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/mystery-gift-overlay.gif",
       opacity: 0.24,
       referenceAttachment: {
         label: "Reference Attachment Video 3",
@@ -142,3 +136,6 @@ export const mysteryGiftPayload: HomepagePayload = {
     },
   ],
 };
+
+
+
