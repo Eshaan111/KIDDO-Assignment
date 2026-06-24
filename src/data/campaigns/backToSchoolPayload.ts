@@ -12,19 +12,12 @@ export const backToSchoolPayload: HomepagePayload = {
     {
       id: "school_overlay",
       type: "FULL_SCREEN_OVERLAY",
-      mediaType: "LOTTIE",
+      mediaType: "GIF",
       animationUrl:
-        "https://raw.githubusercontent.com/airbnb/lottie-web/master/demo/happy2016/data.json",
-      fallbackLocalAsset: "assets/animations/back-to-school-overlay.json",
-      localAssetPlaceholders: {
-        lottieJson: "assets/animations/back-to-school-overlay.json",
-        gif: "assets/animations/back-to-school-overlay.gif",
-        webp: "assets/animations/back-to-school-overlay.webp",
-      },
-      opacity: 0.22,
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/school.gif",
+      opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 1",
-        localPlaceholder: "docs/reference-assets/video-1-back-to-school.mp4",
         description:
           "Back to School overlay reference showing paper airplanes and falling pencils.",
       },

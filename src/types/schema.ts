@@ -7,14 +7,7 @@ export type ThemeConfig = {
 
 export type CampaignReferenceAsset = {
   label: string;
-  localPlaceholder: string;
   description: string;
-};
-
-export type LocalOverlayAssetPlaceholders = {
-  lottieJson?: string;
-  gif?: string;
-  webp?: string;
 };
 
 export type Action =
@@ -75,8 +68,6 @@ export type FullScreenOverlayBlock = {
   type: "FULL_SCREEN_OVERLAY";
   mediaType: OverlayMediaType;
   animationUrl: string;
-  fallbackLocalAsset?: string;
-  localAssetPlaceholders?: LocalOverlayAssetPlaceholders;
   opacity?: number;
   referenceAttachment?: CampaignReferenceAsset;
 };

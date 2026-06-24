@@ -12,19 +12,12 @@ export const summerPlayhousePayload: HomepagePayload = {
     {
       id: "summer_overlay",
       type: "FULL_SCREEN_OVERLAY",
-      mediaType: "LOTTIE",
+      mediaType: "GIF",
       animationUrl:
-        "https://raw.githubusercontent.com/airbnb/lottie-web/master/demo/gatin/data.json",
-      fallbackLocalAsset: "assets/animations/summer-playhouse-overlay.json",
-      localAssetPlaceholders: {
-        lottieJson: "assets/animations/summer-playhouse-overlay.json",
-        gif: "assets/animations/summer-playhouse-overlay.gif",
-        webp: "assets/animations/summer-playhouse-overlay.webp",
-      },
-      opacity: 0.2,
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/summer.gif",
+      opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 2",
-        localPlaceholder: "docs/reference-assets/video-2-summer-playhouse.mp4",
         description:
           "Summer Playhouse reference showing water splash or beach ball motion.",
       },

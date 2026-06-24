@@ -14,11 +14,10 @@ export const mysteryGiftPayload: HomepagePayload = {
       type: "FULL_SCREEN_OVERLAY",
       mediaType: "GIF",
       animationUrl:
-        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/mystery-gift-overlay.gif",
-      opacity: 0.24,
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/carnival.gif",
+      opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 3",
-        localPlaceholder: "docs/reference-assets/video-3-mystery-gift-carnival.mp4",
         description:
           "Mystery Gift Carnival reference showing burst popping confetti animation.",
       },
@@ -136,6 +135,3 @@ export const mysteryGiftPayload: HomepagePayload = {
     },
   ],
 };
-
-
-
