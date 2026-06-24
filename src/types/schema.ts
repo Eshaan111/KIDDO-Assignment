@@ -5,8 +5,20 @@ export type ThemeConfig = {
   card: string;
 };
 
+export type CampaignReferenceAsset = {
+  label: string;
+  localPlaceholder: string;
+  description: string;
+};
+
+export type LocalOverlayAssetPlaceholders = {
+  lottieJson?: string;
+  gif?: string;
+  webp?: string;
+};
+
 export type Action =
-   | {
+  | {
       type: "ADD_TO_CART";
       payload: {
         id: string;
@@ -56,10 +68,17 @@ export type DynamicCollectionBlock = {
   products: Product[];
 };
 
+export type OverlayMediaType = "LOTTIE" | "WEBP" | "GIF";
+
 export type FullScreenOverlayBlock = {
   id: string;
   type: "FULL_SCREEN_OVERLAY";
+  mediaType: OverlayMediaType;
   animationUrl: string;
+  fallbackLocalAsset?: string;
+  localAssetPlaceholders?: LocalOverlayAssetPlaceholders;
+  opacity?: number;
+  referenceAttachment?: CampaignReferenceAsset;
 };
 
 export type UnknownBlock = {

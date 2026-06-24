@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { prefetchCampaignMedia } from "@/engine/campaignMediaCache";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,10 +15,20 @@ const campaigns = {
   mystery: mysteryGiftPayload,
 };
 
+
+
+
 type CampaignKey = keyof typeof campaigns;
 
 export default function HomeScreen() {
+  
   const [activeCampaign, setActiveCampaign] = useState<CampaignKey>('school');
+  const activePayload = campaigns[activeCampaign];
+  
+  useEffect(() => {
+    prefetchCampaignMedia(activePayload);
+  }, [activePayload]);
+
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'left', 'right']}>
@@ -47,7 +58,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.rendererContainer}>
-        <HomeRenderer payload={campaigns[activeCampaign]} />
+        <HomeRenderer payload={activePayload} />
       </View>
     </SafeAreaView>
   );

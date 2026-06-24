@@ -3,6 +3,7 @@
 # dependencies
 node_modules/
 kiddo_sdui_assignment_guide.md
+kiddo_sdui_assignment_guide-old.md
 # Expo
 .expo/
 dist/

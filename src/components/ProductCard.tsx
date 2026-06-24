@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useTheme } from "../context/ThemeContext";
 import { handleAction } from "../engine/actionDispatcher";
+import { useCartStore } from "../store/cartStore";
 import { Product } from "../types/schema";
 
 type Props = {
@@ -11,13 +12,16 @@ type Props = {
 
 export const ProductCard = React.memo(function ProductCard({ product }: Props) {
   const theme = useTheme();
+  const quantity = useCartStore(
+    (state) => state.productQuantities[product.id] ?? 0
+  );
 
   const onAddPress = useCallback(() => {
     handleAction(product.action);
   }, [product.action]);
 
   return (
-    <View style={[styles.card, { backgroundColor: theme.card }]}> 
+    <View style={[styles.card, { backgroundColor: theme.card }]}>
       <View style={styles.imagePlaceholder}>
         <Text>Image</Text>
       </View>
@@ -26,7 +30,11 @@ export const ProductCard = React.memo(function ProductCard({ product }: Props) {
         {product.name}
       </Text>
 
-      <Text style={[styles.price, { color: theme.text }]}>₹{product.price}</Text>
+      <Text style={[styles.price, { color: theme.text }]}>Rs {product.price}</Text>
+
+      {quantity > 0 ? (
+        <Text style={[styles.quantity, { color: theme.primary }]}>In cart: {quantity}</Text>
+      ) : null}
 
       <Pressable
         onPress={onAddPress}
@@ -62,6 +70,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
   },
+  quantity: {
+    marginTop: 6,
+    fontSize: 12,
+    fontWeight: "700",
+  },
   button: {
     marginTop: 8,
     paddingVertical: 8,
@@ -73,5 +86,3 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 });
-
-
