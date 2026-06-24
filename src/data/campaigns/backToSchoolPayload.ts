@@ -1,4 +1,8 @@
 import { HomepagePayload } from "../../types/schema";
+import {
+  createInfoDetailAction,
+  createProductDetailAction,
+} from "../detailPageFactory";
 import { withBoilerplateProductImages } from "../withBoilerplateProductImages";
 
 const baseBackToSchoolPayload: HomepagePayload = {
@@ -13,9 +17,9 @@ const baseBackToSchoolPayload: HomepagePayload = {
     {
       id: "school_overlay",
       type: "FULL_SCREEN_OVERLAY",
-      mediaType: "GIF",
-      animationUrl:
-        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/school.gif?v=2",
+      mediaType: "LOTTIE",
+      animation_url:
+        "https://lottie.host/2760ce1d-cf43-40ec-93b8-dbee303170ca/sY2PKKYFTS.lottie",
       opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 1",
@@ -28,12 +32,13 @@ const baseBackToSchoolPayload: HomepagePayload = {
       type: "BANNER_HERO",
       title: "Back to School Mega Sale",
       subtitle: "Bags, bottles, notebooks, and lunch picks delivered fast",
-      action: {
-        type: "DEEP_LINK",
-        payload: {
-          url: "/campaign/back-to-school",
-        },
-      },
+      action: createInfoDetailAction("/campaign/back-to-school", {
+        title: "Back to School Mega Sale",
+        subtitle: "Everything for the first bell, packed into one campaign page.",
+        description:
+          "Discover school bags, lunch gear, bottles, stationery, and snack picks curated for busy school mornings.",
+        badge: "Campaign",
+      }),
     },
     {
       id: "school_grid_essentials",
@@ -65,12 +70,13 @@ const baseBackToSchoolPayload: HomepagePayload = {
       type: "BANNER_HERO",
       title: "Stationery Refill Rush",
       subtitle: "Notebooks, crayons, and planners under one tap",
-      action: {
-        type: "DEEP_LINK",
-        payload: {
-          url: "/category/stationery",
-        },
-      },
+      action: createInfoDetailAction("/category/stationery", {
+        title: "Stationery Refill Rush",
+        subtitle: "Desk tools and classroom basics under one route.",
+        description:
+          "Open the stationery collection to browse notebooks, planners, crayons, sticker kits, and homework organizers.",
+        badge: "Category",
+      }),
     },
     {
       id: "school_grid_study",
@@ -93,7 +99,26 @@ const baseBackToSchoolPayload: HomepagePayload = {
         { id: "school_stat_3", name: "Eraser Fun Pack", price: 99, action: { type: "ADD_TO_CART", payload: { id: "school_stat_3" } } },
         { id: "school_stat_4", name: "Planner Tabs", price: 79, action: { type: "ADD_TO_CART", payload: { id: "school_stat_4" } } },
         { id: "school_stat_5", name: "Mini Sketch Pad", price: 129, action: { type: "ADD_TO_CART", payload: { id: "school_stat_5" } } },
-        { id: "school_stat_6", name: "Alphabet Flash Cards", price: 199, action: { type: "ADD_TO_CART", payload: { id: "school_stat_6" } } },
+        {
+          id: "school_stat_6",
+          name: "Alphabet Flash Cards",
+          price: 199,
+          action: createProductDetailAction({
+            url: "/category/stationery/alphabet-flash-cards",
+            productId: "school_stat_6",
+            name: "Alphabet Flash Cards",
+            price: 199,
+            description: "A classroom-ready flash card set that now opens through the payload detail page and supports a coupon-based price drop.",
+            backgroundHex: "0057FF",
+            badge: "Coupon Pick",
+            subtitle: "Test the school coupon flow on a stationery item.",
+            primaryAction: {
+              type: "APPLY_MYSTERY_GIFT_COUPON",
+              payload: { couponCode: "SCHOOL20" },
+              label: "Apply coupon",
+            },
+          }),
+        },
         { id: "school_stat_7", name: "Magnetic Bookmark Set", price: 109, action: { type: "ADD_TO_CART", payload: { id: "school_stat_7" } } },
       ],
     },
@@ -102,12 +127,13 @@ const baseBackToSchoolPayload: HomepagePayload = {
       type: "BANNER_HERO",
       title: "Lunch Break Snack Drop",
       subtitle: "Easy lunchbox fillers and after-school munchies",
-      action: {
-        type: "DEEP_LINK",
-        payload: {
-          url: "/category/kids-snacks",
-        },
-      },
+      action: createInfoDetailAction("/category/kids-snacks", {
+        title: "Lunch Break Snack Drop",
+        subtitle: "Fast snack ideas for lunchboxes and after-school cravings.",
+        description:
+          "Browse crunchy, fruity, and sweet snack fillers chosen for lunch breaks, mini tiffins, and school day energy boosts.",
+        badge: "Category",
+      }),
     },
     {
       id: "school_grid_uniform",
@@ -128,7 +154,26 @@ const baseBackToSchoolPayload: HomepagePayload = {
         { id: "school_snack_1", name: "Mini Cookie Bites", price: 79, action: { type: "ADD_TO_CART", payload: { id: "school_snack_1" } } },
         { id: "school_snack_2", name: "Fruit Strip Pack", price: 89, action: { type: "ADD_TO_CART", payload: { id: "school_snack_2" } } },
         { id: "school_snack_3", name: "Cheese Crackers", price: 99, action: { type: "ADD_TO_CART", payload: { id: "school_snack_3" } } },
-        { id: "school_snack_4", name: "Choco Milk Box", price: 35, action: { type: "ADD_TO_CART", payload: { id: "school_snack_4" } } },
+        {
+          id: "school_snack_4",
+          name: "Choco Milk Box",
+          price: 35,
+          action: createProductDetailAction({
+            url: "/category/kids-snacks/choco-milk-box",
+            productId: "school_snack_4",
+            name: "Choco Milk Box",
+            price: 35,
+            description: "A quick lunchbox filler used here to verify that coupon-driven detail pages also work on small-ticket snack products.",
+            backgroundHex: "0057FF",
+            badge: "Snack Coupon",
+            subtitle: "Small price, same 20% coupon flow.",
+            primaryAction: {
+              type: "APPLY_MYSTERY_GIFT_COUPON",
+              payload: { couponCode: "SCHOOL20" },
+              label: "Apply coupon",
+            },
+          }),
+        },
         { id: "school_snack_5", name: "Fruit Yogurt Cup", price: 45, action: { type: "ADD_TO_CART", payload: { id: "school_snack_5" } } },
         { id: "school_snack_6", name: "Trail Mix Pouch", price: 119, action: { type: "ADD_TO_CART", payload: { id: "school_snack_6" } } },
         { id: "school_snack_7", name: "Energy Bar Mini", price: 55, action: { type: "ADD_TO_CART", payload: { id: "school_snack_7" } } },
@@ -141,3 +186,7 @@ export const backToSchoolPayload = withBoilerplateProductImages(
   baseBackToSchoolPayload,
   "0057FF"
 );
+
+
+
+

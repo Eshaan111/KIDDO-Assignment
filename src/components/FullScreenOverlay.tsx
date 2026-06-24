@@ -1,7 +1,9 @@
 import LottieView from "lottie-react-native";
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
+import { resolveOverlayAnimationUrl } from "../engine/overlayMedia";
 import { FullScreenOverlayBlock } from "../types/schema";
 
 type Props = {
@@ -11,16 +13,24 @@ type Props = {
 export const FullScreenOverlay = React.memo(function FullScreenOverlay({ block }: Props) {
   const [hasError, setHasError] = useState(false);
   const opacity = block.opacity ?? 1;
+  const animationUrl = resolveOverlayAnimationUrl(block);
+  const hasRenderableLottie = block.mediaType === "LOTTIE" && !!(block.animationData || animationUrl);
+  const hasRenderableImage =
+    (block.mediaType === "WEBP" || block.mediaType === "GIF") && !!animationUrl;
 
-  if (!block.animationUrl) {
+  useEffect(() => {
+    setHasError(false);
+  }, [block.animationData, animationUrl, block.id, block.mediaType]);
+
+  if (!hasRenderableLottie && !hasRenderableImage) {
     return null;
   }
 
   return (
     <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.overlay, { opacity }]}>
-      {block.mediaType === "LOTTIE" ? (
+      {hasRenderableLottie ? (
         <LottieView
-          source={{ uri: block.animationUrl }}
+          source={(block.animationData as any) ?? { uri: animationUrl! }}
           autoPlay
           loop
           style={styles.media}
@@ -28,11 +38,13 @@ export const FullScreenOverlay = React.memo(function FullScreenOverlay({ block }
         />
       ) : null}
 
-      {block.mediaType === "WEBP" || block.mediaType === "GIF" ? (
+      {hasRenderableImage ? (
         <Image
-          source={{ uri: block.animationUrl }}
+          source={{ uri: animationUrl! }}
           style={styles.media}
-          resizeMode="cover"
+          contentFit="cover"
+          cachePolicy="memory-disk"
+          transition={150}
           onError={() => setHasError(true)}
         />
       ) : null}
@@ -49,7 +61,7 @@ export const FullScreenOverlay = React.memo(function FullScreenOverlay({ block }
 
 const styles = StyleSheet.create({
   overlay: {
-    zIndex: 0,
+    zIndex: 2,
   },
   media: {
     width: "100%",

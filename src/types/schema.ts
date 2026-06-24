@@ -10,6 +10,34 @@ export type CampaignReferenceAsset = {
   description: string;
 };
 
+export type DetailPageType = "PRODUCT_DETAIL" | "INFO_PAGE";
+
+export type DetailPagePrimaryAction =
+  | {
+      type: "ADD_TO_CART";
+      payload: {
+        id: string;
+      };
+      label?: string;
+    }
+  | {
+      type: "APPLY_MYSTERY_GIFT_COUPON";
+      payload: {
+        couponCode: string;
+      };
+      label?: string;
+    };
+
+export type DetailPageData = {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  price?: number;
+  imageUrl?: string;
+  badge?: string;
+  primaryAction?: DetailPagePrimaryAction;
+};
+
 export type Action =
   | {
       type: "ADD_TO_CART";
@@ -21,6 +49,8 @@ export type Action =
       type: "DEEP_LINK";
       payload: {
         url: string;
+        pageType?: DetailPageType;
+        pageData?: DetailPageData;
       };
     }
   | {
@@ -62,11 +92,15 @@ export type DynamicCollectionBlock = {
 
 export type OverlayMediaType = "LOTTIE" | "WEBP" | "GIF";
 
+export type LottieAnimationData = Record<string, unknown>;
+
 export type FullScreenOverlayBlock = {
   id: string;
   type: "FULL_SCREEN_OVERLAY";
   mediaType: OverlayMediaType;
-  animationUrl: string;
+  animationUrl?: string;
+  animation_url?: string;
+  animationData?: LottieAnimationData;
   opacity?: number;
   referenceAttachment?: CampaignReferenceAsset;
 };
@@ -89,4 +123,3 @@ export type HomepagePayload = {
   theme: ThemeConfig;
   blocks: HomepageBlock[];
 };
-

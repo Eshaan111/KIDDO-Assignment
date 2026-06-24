@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Image } from "expo-image";
 
@@ -18,24 +18,41 @@ function getProductButtonLabel(product: Product) {
     case "DEEP_LINK":
       return "Open";
     case "APPLY_MYSTERY_GIFT_COUPON":
-      return "Unlock";
+      return "Apply coupon";
     default:
       return "Unavailable";
   }
 }
 
+function getDiscountedPrice(price: number) {
+  return Math.round(price * 0.8);
+}
+
 export const ProductCard = React.memo(function ProductCard({ product }: Props) {
   const theme = useTheme();
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
   const quantity = useCartStore(
     (state) => state.productQuantities[product.id] ?? 0
   );
   const isAddToCartAction = product.action?.type === "ADD_TO_CART";
+  const isCouponAction = product.action?.type === "APPLY_MYSTERY_GIFT_COUPON";
   const isDisabled = !product.action;
   const buttonLabel = getProductButtonLabel(product);
+  const displayedPrice = useMemo(() => {
+    if (isCouponAction && isCouponApplied) {
+      return getDiscountedPrice(product.price);
+    }
+
+    return product.price;
+  }, [isCouponAction, isCouponApplied, product.price]);
 
   const onAddPress = useCallback(() => {
     handleAction(product.action);
-  }, [product.action]);
+
+    if (isCouponAction) {
+      setIsCouponApplied(true);
+    }
+  }, [isCouponAction, product.action]);
 
   return (
     <View style={[styles.card, { backgroundColor: theme.card }]}>
@@ -60,10 +77,14 @@ export const ProductCard = React.memo(function ProductCard({ product }: Props) {
           {product.name}
         </Text>
 
-        <Text style={[styles.price, { color: theme.text }]}>Rs {product.price}</Text>
+        <Text style={[styles.price, { color: theme.text }]}>Rs {displayedPrice}</Text>
 
         <Text style={[styles.quantity, { color: theme.primary }]} numberOfLines={1}>
-          {isAddToCartAction && quantity > 0 ? `In cart: ${quantity}` : " "}
+          {isAddToCartAction && quantity > 0
+            ? `In cart: ${quantity}`
+            : isCouponAction && isCouponApplied
+              ? "20% off applied"
+              : " "}
         </Text>
       </View>
 

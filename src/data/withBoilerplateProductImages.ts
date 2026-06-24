@@ -67,7 +67,7 @@ const CAMPAIGN_DEFAULTS: Record<string, ImageKey> = {
   E60023: "giftBox",
 };
 
-function getProductImageUrl(name: string, backgroundHex: string) {
+export function getProductImageUrl(name: string, backgroundHex: string) {
   const normalizedName = name.toLowerCase();
 
   const matchingRule = IMAGE_RULES.find((rule) =>

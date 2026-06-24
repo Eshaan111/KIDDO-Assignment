@@ -1,4 +1,4 @@
-import * as Linking from "expo-linking";
+import { router } from "expo-router";
 import { Alert } from "react-native";
 
 import { useCartStore } from "../store/cartStore";
@@ -16,11 +16,11 @@ export function handleAction(action?: Action) {
     }
 
     case "DEEP_LINK": {
-      const appUrl = Linking.createURL(action.payload.url.replace(/^\//, ""));
-
-      Linking.openURL(appUrl).catch(() => {
+      try {
+        router.navigate(action.payload.url as never);
+      } catch {
         Alert.alert("Navigation unavailable", action.payload.url);
-      });
+      }
       return;
     }
 

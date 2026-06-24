@@ -1,4 +1,8 @@
 import { HomepagePayload } from "../../types/schema";
+import {
+  createInfoDetailAction,
+  createProductDetailAction,
+} from "../detailPageFactory";
 import { withBoilerplateProductImages } from "../withBoilerplateProductImages";
 
 const baseMysteryGiftPayload: HomepagePayload = {
@@ -13,9 +17,9 @@ const baseMysteryGiftPayload: HomepagePayload = {
     {
       id: "carnival_overlay",
       type: "FULL_SCREEN_OVERLAY",
-      mediaType: "GIF",
-      animationUrl:
-        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/carnival.gif",
+      mediaType: "LOTTIE",
+      animation_url:
+        "https://lottie.host/419adf15-9376-4ae6-a82b-41aea418819d/4ydoYmkMRn.lottie",
       opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 3",
@@ -54,10 +58,48 @@ const baseMysteryGiftPayload: HomepagePayload = {
         { id: "mystery_unlock_1", name: "Golden Envelope Pack", price: 249, action: { type: "APPLY_MYSTERY_GIFT_COUPON", payload: { couponCode: "MYSTERYKIDDO" } } },
         { id: "mystery_unlock_2", name: "Confetti Candy Tube", price: 109, action: { type: "ADD_TO_CART", payload: { id: "mystery_unlock_2" } } },
         { id: "mystery_unlock_3", name: "Mystery Plush Capsule", price: 399, action: { type: "ADD_TO_CART", payload: { id: "mystery_unlock_3" } } },
-        { id: "mystery_unlock_4", name: "Clue Card Set", price: 159, action: { type: "DEEP_LINK", payload: { url: "/campaign/mystery-gift/rules" } } },
+        {
+          id: "mystery_unlock_4",
+          name: "Clue Card Set",
+          price: 159,
+          action: createProductDetailAction({
+            url: "/campaign/mystery-gift/rules",
+            productId: "mystery_unlock_4",
+            name: "Clue Card Set",
+            price: 159,
+            description: "A hint-packed card set that explains the carnival logic, clue flow, and how each reveal path unlocks new surprises.",
+            backgroundHex: "E60023",
+            badge: "Rule Book",
+            subtitle: "Understand the mystery before the next reveal.",
+            primaryAction: {
+              type: "APPLY_MYSTERY_GIFT_COUPON",
+              payload: { couponCode: "MYSTERYKIDDO" },
+              label: "Apply coupon",
+            },
+          }),
+        },
         { id: "mystery_unlock_5", name: "Spin Wheel Entry", price: 89, action: { type: "APPLY_MYSTERY_GIFT_COUPON", payload: { couponCode: "MYSTERYKIDDO" } } },
         { id: "mystery_unlock_6", name: "Rainbow Prize Pouch", price: 219, action: { type: "ADD_TO_CART", payload: { id: "mystery_unlock_6" } } },
-        { id: "mystery_unlock_7", name: "Lucky Reveal Card", price: 129, action: { type: "DEEP_LINK", payload: { url: "/campaign/mystery-gift/reveal" } } },
+        {
+          id: "mystery_unlock_7",
+          name: "Lucky Reveal Card",
+          price: 129,
+          action: createProductDetailAction({
+            url: "/campaign/mystery-gift/reveal",
+            productId: "mystery_unlock_7",
+            name: "Lucky Reveal Card",
+            price: 129,
+            description: "A reveal-driven collectible card that ties into timed drops and keeps the carnival mystery loop moving.",
+            backgroundHex: "E60023",
+            badge: "Reveal",
+            subtitle: "A card built for timed surprise unlocks.",
+            primaryAction: {
+              type: "APPLY_MYSTERY_GIFT_COUPON",
+              payload: { couponCode: "MYSTERYKIDDO" },
+              label: "Apply coupon",
+            },
+          }),
+        },
       ],
     },
     {
@@ -65,12 +107,18 @@ const baseMysteryGiftPayload: HomepagePayload = {
       type: "BANNER_HERO",
       title: "Tonight's Bonus Reveal",
       subtitle: "Timed drops and surprise coupon windows are live",
-      action: {
-        type: "DEEP_LINK",
-        payload: {
-          url: "/campaign/mystery-gift/bonus-reveal",
+      action: createInfoDetailAction("/campaign/mystery-gift/bonus-reveal", {
+        title: "Tonight's Bonus Reveal",
+        subtitle: "A special mystery-gift landing page for timed evening unlocks.",
+        description:
+          "Track surprise windows, extra coupon chances, and limited carnival bonuses that only appear during the nightly reveal cycle.",
+        badge: "Bonus Reveal",
+        primaryAction: {
+          type: "APPLY_MYSTERY_GIFT_COUPON",
+          payload: { couponCode: "MYSTERYKIDDO" },
+          label: "Apply coupon",
         },
-      },
+      }),
     },
     {
       id: "mystery_grid_party",
@@ -80,7 +128,26 @@ const baseMysteryGiftPayload: HomepagePayload = {
         { id: "mystery_party_1", name: "Glow Wristband Set", price: 149, action: { type: "ADD_TO_CART", payload: { id: "mystery_party_1" } } },
         { id: "mystery_party_2", name: "Lucky Dip Tokens", price: 129, action: { type: "ADD_TO_CART", payload: { id: "mystery_party_2" } } },
         { id: "mystery_party_3", name: "Mini Pinwheel Pack", price: 79, action: { type: "ADD_TO_CART", payload: { id: "mystery_party_3" } } },
-        { id: "mystery_party_4", name: "Magic Reveal Cards", price: 169, action: { type: "DEEP_LINK", payload: { url: "/campaign/mystery-gift/reveal-cards" } } },
+        {
+          id: "mystery_party_4",
+          name: "Magic Reveal Cards",
+          price: 169,
+          action: createProductDetailAction({
+            url: "/campaign/mystery-gift/reveal-cards",
+            productId: "mystery_party_4",
+            name: "Magic Reveal Cards",
+            price: 169,
+            description: "Reveal cards designed for the carnival loop, with mystery cues, collectible styling, and hidden prompt moments.",
+            backgroundHex: "E60023",
+            badge: "Reveal Cards",
+            subtitle: "Designed for party-style mystery reveals.",
+            primaryAction: {
+              type: "APPLY_MYSTERY_GIFT_COUPON",
+              payload: { couponCode: "MYSTERYKIDDO" },
+              label: "Apply coupon",
+            },
+          }),
+        },
       ],
     },
     {
@@ -102,12 +169,13 @@ const baseMysteryGiftPayload: HomepagePayload = {
       type: "BANNER_HERO",
       title: "Hourly Drop Alerts",
       subtitle: "Tap in before surprise prizes disappear",
-      action: {
-        type: "DEEP_LINK",
-        payload: {
-          url: "/campaign/mystery-gift/hourly-drops",
-        },
-      },
+      action: createInfoDetailAction("/campaign/mystery-gift/hourly-drops", {
+        title: "Hourly Drop Alerts",
+        subtitle: "Watch the next reveal windows and fast-moving mystery drops.",
+        description:
+          "This page is driven straight from the campaign payload and summarizes which surprise prize windows are currently worth watching.",
+        badge: "Live Drops",
+      }),
     },
     {
       id: "mystery_grid_tokens",
@@ -136,8 +204,12 @@ const baseMysteryGiftPayload: HomepagePayload = {
     },
   ],
 };
+
 export const mysteryGiftPayload = withBoilerplateProductImages(
   baseMysteryGiftPayload,
   "E60023"
 );
+
+
+
 
