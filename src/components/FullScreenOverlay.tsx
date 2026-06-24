@@ -1,5 +1,5 @@
-import LottieView from "lottie-react-native";
 import { Image } from "expo-image";
+import LottieView from "lottie-react-native";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -46,6 +46,7 @@ export const FullScreenOverlay = React.memo(function FullScreenOverlay({ block }
           cachePolicy="memory-disk"
           transition={150}
           onError={() => setHasError(true)}
+          autoplay = {true}
         />
       ) : null}
 

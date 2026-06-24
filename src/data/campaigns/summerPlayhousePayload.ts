@@ -19,7 +19,7 @@ const baseSummerPlayhousePayload: HomepagePayload = {
       type: "FULL_SCREEN_OVERLAY",
       mediaType: "WEBP",
       animation_url:
-        "https://www.gstatic.com/webp/animated/1.webp",
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/giphy-ezgif.com-gif-to-webp-converter.webp",
       opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 2",
