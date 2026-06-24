@@ -19,7 +19,7 @@ const baseMysteryGiftPayload: HomepagePayload = {
       type: "FULL_SCREEN_OVERLAY",
       mediaType: "LOTTIE",
       animation_url:
-        "https://lottie.host/419adf15-9376-4ae6-a82b-41aea418819d/4ydoYmkMRn.lottie",
+        "https://lottie.host/4972206a-4bd8-4d9f-b509-67ed7d3012ab/iLUFci1oaJ.lottie",
       opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 3",
