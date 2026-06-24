@@ -14,7 +14,7 @@ export const backToSchoolPayload: HomepagePayload = {
       type: "FULL_SCREEN_OVERLAY",
       mediaType: "GIF",
       animationUrl:
-        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/school.gif",
+        "https://raw.githubusercontent.com/Eshaan111/KIDDO-Assignment/main/assets/animations/school.gif?v=2",
       opacity: 0.4,
       referenceAttachment: {
         label: "Reference Attachment Video 1",
