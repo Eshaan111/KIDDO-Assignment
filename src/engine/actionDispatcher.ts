@@ -1,3 +1,6 @@
+import * as Linking from "expo-linking";
+import { Alert } from "react-native";
+
 import { useCartStore } from "../store/cartStore";
 import { Action } from "../types/schema";
 
@@ -13,12 +16,19 @@ export function handleAction(action?: Action) {
     }
 
     case "DEEP_LINK": {
-      console.log("Navigate to:", action.payload.url);
+      const appUrl = Linking.createURL(action.payload.url.replace(/^\//, ""));
+
+      Linking.openURL(appUrl).catch(() => {
+        Alert.alert("Navigation unavailable", action.payload.url);
+      });
       return;
     }
 
     case "APPLY_MYSTERY_GIFT_COUPON": {
-      console.log("Apply mystery gift coupon:", action.payload.couponCode);
+      Alert.alert(
+        "Coupon applied",
+        `${action.payload.couponCode} is ready to use.`
+      );
       return;
     }
 

@@ -43,7 +43,6 @@ export type BannerHeroBlock = {
   type: "BANNER_HERO";
   title: string;
   subtitle?: string;
-  imageUrl?: string;
   action?: Action;
 };
 
@@ -90,3 +89,4 @@ export type HomepagePayload = {
   theme: ThemeConfig;
   blocks: HomepageBlock[];
 };
+

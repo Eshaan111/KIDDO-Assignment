@@ -1,6 +1,7 @@
 import { HomepagePayload } from "../../types/schema";
+import { withBoilerplateProductImages } from "../withBoilerplateProductImages";
 
-export const backToSchoolPayload: HomepagePayload = {
+const baseBackToSchoolPayload: HomepagePayload = {
   campaignId: "back_to_school",
   theme: {
     primary: "#0057FF",
@@ -135,3 +136,8 @@ export const backToSchoolPayload: HomepagePayload = {
     },
   ],
 };
+
+export const backToSchoolPayload = withBoilerplateProductImages(
+  baseBackToSchoolPayload,
+  "0057FF"
+);

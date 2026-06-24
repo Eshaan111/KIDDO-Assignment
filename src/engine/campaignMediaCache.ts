@@ -6,6 +6,7 @@ import {
   HomepagePayload,
 } from "../types/schema";
 
+const MAX_WARMED_URLS = 12;
 const warmedUrls = new Set<string>();
 
 function isFullScreenOverlayBlock(
@@ -18,23 +19,43 @@ function isFullScreenOverlayBlock(
   );
 }
 
+function markUrlAsWarmed(url: string) {
+  if (warmedUrls.has(url)) {
+    warmedUrls.delete(url);
+  }
+
+  warmedUrls.add(url);
+
+  while (warmedUrls.size > MAX_WARMED_URLS) {
+    const oldestUrl = warmedUrls.values().next().value;
+
+    if (!oldestUrl) {
+      break;
+    }
+
+    warmedUrls.delete(oldestUrl);
+  }
+}
+
 export function prefetchCampaignMedia(payload: HomepagePayload) {
   payload.blocks.filter(isFullScreenOverlayBlock).forEach((block) => {
-    if (warmedUrls.has(block.animationUrl)) {
+    const url = block.animationUrl;
+
+    if (warmedUrls.has(url)) {
       return;
     }
 
-    warmedUrls.add(block.animationUrl);
+    markUrlAsWarmed(url);
 
     if (block.mediaType === "WEBP" || block.mediaType === "GIF") {
-      Image.prefetch(block.animationUrl).catch(() => {
-        warmedUrls.delete(block.animationUrl);
+      Image.prefetch(url).catch(() => {
+        warmedUrls.delete(url);
       });
       return;
     }
 
-    fetch(block.animationUrl).catch(() => {
-      warmedUrls.delete(block.animationUrl);
+    fetch(url).catch(() => {
+      warmedUrls.delete(url);
     });
   });
 }

@@ -1,6 +1,7 @@
 import { HomepagePayload } from "../../types/schema";
+import { withBoilerplateProductImages } from "../withBoilerplateProductImages";
 
-export const mysteryGiftPayload: HomepagePayload = {
+const baseMysteryGiftPayload: HomepagePayload = {
   campaignId: "mystery_gift_carnival",
   theme: {
     primary: "#E60023",
@@ -135,3 +136,8 @@ export const mysteryGiftPayload: HomepagePayload = {
     },
   ],
 };
+export const mysteryGiftPayload = withBoilerplateProductImages(
+  baseMysteryGiftPayload,
+  "E60023"
+);
+

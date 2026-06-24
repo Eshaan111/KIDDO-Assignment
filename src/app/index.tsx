@@ -15,20 +15,15 @@ const campaigns = {
   mystery: mysteryGiftPayload,
 };
 
-
-
-
 type CampaignKey = keyof typeof campaigns;
 
 export default function HomeScreen() {
-  
   const [activeCampaign, setActiveCampaign] = useState<CampaignKey>('school');
   const activePayload = campaigns[activeCampaign];
-  
+
   useEffect(() => {
     prefetchCampaignMedia(activePayload);
   }, [activePayload]);
-
 
   return (
     <SafeAreaView style={styles.root} edges={['top', 'left', 'right']}>
@@ -142,3 +137,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+

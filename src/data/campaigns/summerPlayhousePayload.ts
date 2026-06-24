@@ -1,6 +1,7 @@
 import { HomepagePayload } from "../../types/schema";
+import { withBoilerplateProductImages } from "../withBoilerplateProductImages";
 
-export const summerPlayhousePayload: HomepagePayload = {
+const baseSummerPlayhousePayload: HomepagePayload = {
   campaignId: "summer_playhouse",
   theme: {
     primary: "#00AEEF",
@@ -135,3 +136,8 @@ export const summerPlayhousePayload: HomepagePayload = {
     },
   ],
 };
+export const summerPlayhousePayload = withBoilerplateProductImages(
+  baseSummerPlayhousePayload,
+  "00AEEF"
+);
+
