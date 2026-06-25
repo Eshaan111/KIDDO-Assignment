@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import { Alert } from "react-native";
 
 import { useCartStore } from "../store/cartStore";
 import { Action } from "../types/schema";
@@ -19,21 +18,16 @@ export function handleAction(action?: Action) {
       try {
         router.navigate(action.payload.url as never);
       } catch {
-        Alert.alert("Navigation unavailable", action.payload.url);
+        return;
       }
       return;
     }
 
     case "APPLY_MYSTERY_GIFT_COUPON": {
-      Alert.alert(
-        "Coupon applied",
-        `${action.payload.couponCode} is ready to use.`
-      );
       return;
     }
 
     default: {
-      console.warn("Unsupported action:", action);
       return;
     }
   }
